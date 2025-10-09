@@ -56,6 +56,8 @@ Antes de começar, você precisará ter instalado:
 
 ### 🔙 Backend (API)
 
+```bash
+
 # Acesse a pasta
 cd backend
 
@@ -74,7 +76,11 @@ npm run migrate
 # Iniciar o servidor
 npm run dev
 
+```
+
 ### Frontend
+
+``` bash
 
 # Acesse a pasta
 cd frontend
@@ -87,4 +93,5 @@ npm install
 
 # Iniciar projeto
 npm run dev
+```
 
