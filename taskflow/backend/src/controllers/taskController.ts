@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import Task from "../models/Task";
-import type { AuthRequest } from "../middlewares/authMiddleware";
+import Task from "../models/Task.js";
+import type { AuthRequest } from "../middlewares/authMiddleware.js";
 
 export const createTask = async (req: AuthRequest, res: Response) => {
   const { title, description, status, deadline } = req.body;

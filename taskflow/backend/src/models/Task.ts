@@ -1,5 +1,5 @@
 import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
-import User from "./User";
+import User from "./User.js";
 
 @Table({ tableName: "tasks" })
 export default class Task extends Model {
@@ -7,27 +7,27 @@ export default class Task extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
-  title!: string;
+  declare title: string;
 
   @Column(DataType.TEXT)
-  description!: string;
+  declare description: string;
 
   @Column({
-    type: DataType.ENUM("pendente", "em andamento", "concluída"),
+    type: DataType.ENUM("pendente", "em_andamento", "concluida"),
     defaultValue: "pendente",
   })
-  status!: string;
+  declare status: string;
 
   @Column(DataType.DATE)
-  deadline?: Date;
+  declare deadline: Date;
 
   @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  userId!: number;
+  declare userId: number;
 
   @BelongsTo(() => User)
-  user!: User;
+  declare user: User;
 }

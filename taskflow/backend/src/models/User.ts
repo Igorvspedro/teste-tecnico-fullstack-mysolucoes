@@ -1,5 +1,4 @@
-import { Table, Column, Model, DataType, HasMany } from "sequelize-typescript";
-import Task from "./Task";
+import { Table, Column, Model, DataType } from "sequelize-typescript";
 
 @Table({ tableName: "users" })
 export default class User extends Model {
@@ -8,14 +7,11 @@ export default class User extends Model {
     allowNull: false,
     unique: true,
   })
-  email!: string;
+  declare email: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  password!: string;
-
-  @HasMany(() => Task)
-  tasks!: Task[];
+  declare password: string;
 }
