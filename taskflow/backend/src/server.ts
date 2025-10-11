@@ -1,6 +1,8 @@
+import { swaggerSpec, swaggerUi } from "./config/swagger.js";
 import express from "express";
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize-typescript";
+
 import authRoutes from "./routes/authRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
 import User from "./models/User.js";
@@ -9,6 +11,11 @@ import Task from "./models/Task.js";
 dotenv.config();
 const app = express();
 app.use(express.json());
+
+app.use("/api/auth", authRoutes);
+app.use("/api/tasks", taskRoutes);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 if (
   !process.env.DB_HOST ||
