@@ -4,7 +4,8 @@ import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFound";
 import { ProtectedRoute } from "./ProtectedRoute";
-import CreateTask from "../pages/CreateTask";
+import CreateTask from "../pages/tasks/CreateTask";
+import UpdateTask from "../pages/tasks/UpdateTask";
 
 export default function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ export default function AppRoutes() {
         }
       />
       <Route path="/create-task" element={<CreateTask />} />
+      <Route path="/edit-task/:id" element={<UpdateTask />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

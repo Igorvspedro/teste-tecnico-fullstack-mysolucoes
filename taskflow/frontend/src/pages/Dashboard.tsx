@@ -69,12 +69,16 @@ export default function Dashboard() {
                     className={`px-2 py-1 rounded text-white text-xs ${
                       task.status === "pendente"
                         ? "bg-yellow-500"
-                        : task.status === "em andamento"
+                        : task.status === "em_andamento"
                         ? "bg-blue-500"
                         : "bg-green-500"
                     }`}
                   >
-                    {task.status}
+                    {task.status === "pendente"
+                      ? "Pendente"
+                      : task.status === "em_andamento"
+                      ? "Em andamento"
+                      : "Concluída"}
                   </span>
                 </p>
                 {task.deadline && (
@@ -82,6 +86,15 @@ export default function Dashboard() {
                     Prazo: {new Date(task.deadline).toLocaleDateString()}
                   </p>
                 )}
+
+                <div className="mt-4 flex gap-2">
+                  <button
+                    onClick={() => navigate(`/edit-task/${task.id}`)}
+                    className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition"
+                  >
+                    Editar
+                  </button>
+                </div>
               </div>
             ))}
           </div>
