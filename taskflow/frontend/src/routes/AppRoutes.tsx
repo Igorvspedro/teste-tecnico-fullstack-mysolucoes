@@ -4,6 +4,7 @@ import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFound";
 import { ProtectedRoute } from "./ProtectedRoute";
+import CreateTask from "../pages/CreateTask";
 
 export default function AppRoutes() {
   return (
@@ -19,6 +20,7 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route path="/create-task" element={<CreateTask />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
