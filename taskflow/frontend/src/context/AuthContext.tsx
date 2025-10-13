@@ -2,9 +2,10 @@ import { createContext } from "react";
 import type { User } from "../entities/User";
 
 interface AuthContextProps {
-  user: User;
+  user: User | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  loading?: boolean;
 }
 
 export const AuthContext = createContext<AuthContextProps>({

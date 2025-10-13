@@ -23,16 +23,27 @@ export const login = async (req: Request, res: Response) => {
   try {
     const user = await User.findOne({ where: { email } });
 
-    if (!user) return res.status(404).json({ error: "Usuário não encontrado" });
+    if (!user) {
+      return res.status(404).json({ error: "Usuário não encontrado" });
+    }
 
     const isValid = await bcrypt.compare(password, user.password);
-    if (!isValid) return res.status(401).json({ error: "Senha inválida" });
+    if (!isValid) {
+      return res.status(401).json({ error: "Senha inválida" });
+    }
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
       expiresIn: "1h",
     });
-    res.json({ token });
+
+    const userData = {
+      id: user.id,
+      email: user.email,
+    };
+
+    return res.json({ user: userData, token });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Erro no servidor" });
   }
 };

@@ -10,33 +10,55 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await login(email, password);
+
+    try {
+      await login(email, password);
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      alert("Email ou senha incorretos");
+    }
   };
 
   return (
     <div className="">
-      <form onSubmit={handleSubmit} className="">
-        <h1 className="">TaskFlow</h1>
+      <form
+        onSubmit={handleSubmit}
+        className=""
+      >
+        <h1 className="">
+          TaskFlow
+        </h1>
+
         <input
           type="email"
           placeholder="Email"
-          className=""
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className=""
+          required
         />
+
         <input
           type="password"
           placeholder="Senha"
-          className=""
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className=""
+          required
         />
 
-        <button className="">
+        <button
+          type="submit"
+          className=""
+        >
           Entrar
         </button>
 
-        <button className="" onClick={() => navigate("/register")}>
+        <button
+          type="button"
+          onClick={() => navigate("/register")}
+          className=""
+        >
           Criar conta
         </button>
       </form>

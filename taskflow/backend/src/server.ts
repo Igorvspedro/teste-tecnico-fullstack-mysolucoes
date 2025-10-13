@@ -2,6 +2,7 @@ import { swaggerSpec, swaggerUi } from "./config/swagger.js";
 import express from "express";
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize-typescript";
+import cors from "cors";
 
 import authRoutes from "./routes/authRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
@@ -10,6 +11,8 @@ import Task from "./models/Task.js";
 
 dotenv.config();
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);

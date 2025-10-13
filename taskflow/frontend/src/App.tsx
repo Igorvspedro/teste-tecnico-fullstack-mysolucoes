@@ -3,13 +3,13 @@ import { AuthProvider } from "./provider/AuthProvider";
 import AppRoutes from "./routes/AppRoutes";
 
 function App() {
-  return(
-    <AuthProvider>
-      <BrowserRouter>
+  return (
+    <BrowserRouter>
+      <AuthProvider>
         <AppRoutes />
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
-export default App
+export default App;
