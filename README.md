@@ -68,7 +68,7 @@ cp .env.example .env
 npm install
 
 # Criar banco no MySQL
-CREATE DATABASE taskflow_dev;
+CREATE DATABASE taskflow;
 
 # Rodar migrations
 npm run migrate
