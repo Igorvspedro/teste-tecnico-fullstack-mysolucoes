@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import { TaskStatusEnum } from "../../enums/TaskStatusEnum";
 
 const taskSchema = z.object({
   title: z.string().min(1, "Título é obrigatório"),
@@ -62,9 +63,9 @@ export default function CreateTask() {
         <select
           {...register("status")}
         >
-          <option value="pendente">Pendente</option>
-          <option value="em_andamento">Em andamento</option>
-          <option value="concluida">Concluída</option>
+          <option value={TaskStatusEnum.PENDING}>Pendente</option>
+          <option value={TaskStatusEnum.IN_PROGRESS}>Em andamento</option>
+          <option value={TaskStatusEnum.DONE}>Concluída</option>
         </select>
 
         <input type="date" {...register("deadline")} className="" />

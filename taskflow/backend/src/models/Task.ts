@@ -1,5 +1,6 @@
 import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
 import User from "./User.js";
+import { TaskEnumStatus } from "../enums/TaskEnumStatus.js";
 
 @Table({ tableName: "tasks" })
 export default class Task extends Model {
@@ -13,8 +14,8 @@ export default class Task extends Model {
   declare description: string;
 
   @Column({
-    type: DataType.ENUM("pendente", "em_andamento", "concluida"),
-    defaultValue: "pendente",
+    type: DataType.ENUM(TaskEnumStatus.PENDING, TaskEnumStatus.IN_PROGRESS, TaskEnumStatus.DONE),
+    defaultValue: TaskEnumStatus.PENDING,
   })
   declare status: string;
 

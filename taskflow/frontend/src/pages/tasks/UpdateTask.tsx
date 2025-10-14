@@ -4,6 +4,7 @@ import { z } from "zod";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../../services/api";
+import { TaskStatusEnum } from "../../enums/TaskStatusEnum";
 
 const taskSchema = z.object({
   title: z.string().min(1, "Título é obrigatório"),
@@ -101,9 +102,9 @@ export default function UpdateTask() {
           <select
             {...register("status")}
           >
-            <option value="pendente">Pendente</option>
-            <option value="em_andamento">Em andamento</option>
-            <option value="concluida">Concluída</option>
+            <option value={TaskStatusEnum.PENDING}>Pendente</option>
+            <option value={TaskStatusEnum.IN_PROGRESS}>Em andamento</option>
+            <option value={TaskStatusEnum.DONE}>Concluída</option>
           </select>
 
           <input

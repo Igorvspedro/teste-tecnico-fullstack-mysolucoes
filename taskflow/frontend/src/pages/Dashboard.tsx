@@ -3,6 +3,7 @@ import api from "../services/api";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import type { Task } from "../entities/Task";
+import { TaskStatusEnum } from "../enums/TaskStatusEnum";
 
 export default function Dashboard() {
   const { user, logout } = useContext(AuthContext);
@@ -67,16 +68,16 @@ export default function Dashboard() {
                 <p className="text-sm mt-3">
                   <span
                     className={`px-2 py-1 rounded text-white text-xs ${
-                      task.status === "pendente"
+                      task.status === TaskStatusEnum.PENDING
                         ? "bg-yellow-500"
-                        : task.status === "em_andamento"
+                        : task.status === TaskStatusEnum.IN_PROGRESS
                         ? "bg-blue-500"
                         : "bg-green-500"
                     }`}
                   >
-                    {task.status === "pendente"
+                    {task.status === TaskStatusEnum.PENDING
                       ? "Pendente"
-                      : task.status === "em_andamento"
+                      : task.status === TaskStatusEnum.IN_PROGRESS
                       ? "Em andamento"
                       : "Concluída"}
                   </span>
