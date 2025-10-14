@@ -32,8 +32,8 @@ export default function Dashboard() {
       <header className="">
         <h1 className="">TaskFlow</h1>
         <div className="">
-          <span className="text-gray-700">Olá, {user?.email}</span>
-          <button onClick={logout} className="">
+          <span className="text-gray-700 px-2">Olá, {user?.email}</span>
+          <button onClick={logout} className="btn btn-danger">
             Sair
           </button>
         </div>
@@ -41,12 +41,12 @@ export default function Dashboard() {
 
       <main className="flex-1 p-6">
         <div className="flex justify-between mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800">
+          <h1 className="font-semibold">
             Minhas Tarefas
-          </h2>
+          </h1>
           <button
             onClick={() => navigate("/create-task")}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+            className="btn btn-primary"
           >
             + Nova Tarefa
           </button>
@@ -59,66 +59,68 @@ export default function Dashboard() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {tasks.map((task) => (
-    <div key={task.id} className="bg-white p-4 rounded-lg shadow">
-      <h3 className="font-bold text-lg text-gray-800">{task.title}</h3>
-      <p className="text-gray-600 text-sm mt-2">{task.description}</p>
-      <p className="text-sm mt-3">
-        <span
-          className={`px-2 py-1 rounded text-white text-xs ${
-            task.status === "pendente"
-              ? "bg-yellow-500"
-              : task.status === "em_andamento"
-              ? "bg-blue-500"
-              : "bg-green-500"
-          }`}
-        >
-          {task.status === "pendente"
-            ? "Pendente"
-            : task.status === "em_andamento"
-            ? "Em andamento"
-            : "Concluída"}
-        </span>
-      </p>
-      {task.deadline && (
-        <p className="text-xs text-gray-500 mt-2">
-          Prazo: {new Date(task.deadline).toLocaleDateString()}
-        </p>
-      )}
+              <div key={task.id} className="bg-white p-4 rounded-lg shadow">
+                <h3 className="font-bold text-lg text-gray-800">
+                  {task.title}
+                </h3>
+                <p className="text-gray-600 text-sm mt-2">{task.description}</p>
+                <p className="text-sm mt-3">
+                  <span
+                    className={`px-2 py-1 rounded text-white text-xs ${
+                      task.status === "pendente"
+                        ? "bg-yellow-500"
+                        : task.status === "em_andamento"
+                        ? "bg-blue-500"
+                        : "bg-green-500"
+                    }`}
+                  >
+                    {task.status === "pendente"
+                      ? "Pendente"
+                      : task.status === "em_andamento"
+                      ? "Em andamento"
+                      : "Concluída"}
+                  </span>
+                </p>
+                {task.deadline && (
+                  <p className="text-xs text-gray-500 mt-2">
+                    Prazo: {new Date(task.deadline).toLocaleDateString()}
+                  </p>
+                )}
 
-      <div className="mt-4 flex gap-2">
-        <button
-          onClick={() => navigate(`/edit-task/${task.id}`)}
-          className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition"
-        >
-          Editar
-        </button>
+                <div className="mt-4 flex gap-2">
+                  <button
+                    onClick={() => navigate(`/edit-task/${task.id}`)}
+                    className="btn btn-outline"
+                  >
+                    Editar
+                  </button>
 
-        <button
-          onClick={async () => {
-            const confirmDelete = window.confirm(
-              "Deseja realmente remover esta tarefa?"
-            );
-            if (!confirmDelete) return;
+                  <button
+                    onClick={async () => {
+                      const confirmDelete = window.confirm(
+                        "Deseja realmente remover esta tarefa?"
+                      );
+                      if (!confirmDelete) return;
 
-            try {
-              const token = localStorage.getItem("taskflow-token");
-              await api.delete(`/tasks/${task.id}`, {
-                headers: { Authorization: `Bearer ${token}` },
-              });
-              alert("Tarefa removida com sucesso!");
-              loadTasks();
-            } catch (error) {
-              console.error(error);
-              alert("Erro ao remover tarefa.");
-            }
-          }}
-          className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
-        >
-          Remover
-        </button>
-      </div>
-    </div>
-  ))}
+                      try {
+                        const token = localStorage.getItem("taskflow-token");
+                        await api.delete(`/tasks/${task.id}`, {
+                          headers: { Authorization: `Bearer ${token}` },
+                        });
+                        alert("Tarefa removida com sucesso!");
+                        loadTasks();
+                      } catch (error) {
+                        console.error(error);
+                        alert("Erro ao remover tarefa.");
+                      }
+                    }}
+                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
+                  >
+                    Remover
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </main>

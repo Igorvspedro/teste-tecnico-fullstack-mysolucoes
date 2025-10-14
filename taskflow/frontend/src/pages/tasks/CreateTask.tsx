@@ -39,26 +39,28 @@ export default function CreateTask() {
 
   return (
     <div className="">
+      <header>
+        <h1>TaskFlow</h1>
+      </header>
+
+      <div className="flex justify-center items-center min-h-screen">
       <form onSubmit={handleSubmit(onSubmit)} className="">
-        <h2 className="">Nova Tarefa</h2>
+        <h1 className="">Nova Tarefa</h1>
 
         <input
           type="text"
           placeholder="Título"
           {...register("title")}
-          className=""
         />
         {errors.title && <p className="">{errors.title.message}</p>}
 
         <textarea
           placeholder="Descrição (opcional)"
           {...register("description")}
-          className=""
         />
 
         <select
           {...register("status")}
-          className=""
         >
           <option value="pendente">Pendente</option>
           <option value="em_andamento">Em andamento</option>
@@ -67,18 +69,19 @@ export default function CreateTask() {
 
         <input type="date" {...register("deadline")} className="" />
 
-        <button type="submit" className="">
+        <button type="submit" className="btn btn-primary w-full">
           Criar
         </button>
 
         <button
           type="button"
           onClick={() => navigate("/dashboard")}
-          className=""
+          className="btn btn-outline w-full"
         >
           Voltar
         </button>
       </form>
+      </div>
     </div>
   );
 }

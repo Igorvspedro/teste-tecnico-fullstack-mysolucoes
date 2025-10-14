@@ -1,3 +1,119 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  @apply bg-gray-100 text-gray-800 font-sans antialiased;
+  background:#e7eaf7;
+  min-height: 100vh;
+}
+
+#root {
+  @apply flex flex-col min-h-screen;
+}
+
+h1 {
+  @apply text-3xl font-bold mb-6;
+}
+
+header {
+  @apply bg-white shadow-md flex justify-between items-center px-8 py-4 sticky top-0 z-10;
+}
+
+header h1 {
+  @apply text-2xl font-bold text-blue-600 tracking-wide;
+}
+
+header button {
+  @apply bg-red-500 text-white font-medium px-3 py-1.5 rounded hover:bg-red-600 transition;
+}
+
+main {
+  @apply flex-1 p-6;
+}
+
+main h2 {
+  @apply text-2xl font-semibold text-gray-800 mb-4;
+}
+
+.task-card {
+  @apply bg-white p-5 rounded-xl shadow hover:shadow-lg transition duration-300;
+}
+
+.task-card h3 {
+  @apply font-semibold text-lg text-gray-800;
+}
+
+.task-card p {
+  @apply text-gray-600 text-sm mt-2;
+}
+
+.btn {
+  @apply px-4 py-2 rounded font-medium transition;
+}
+
+.btn-primary {
+  @apply bg-blue-500 text-white hover:bg-blue-600;
+}
+
+.btn-success {
+  @apply bg-green-500 text-white hover:bg-green-600;
+}
+
+.btn-warning {
+  @apply bg-yellow-500 text-white hover:bg-yellow-600;
+}
+
+.btn-danger {
+  @apply bg-red-500 text-white hover:bg-red-600;
+}
+
+.btn-outline {
+  @apply border border-gray-300 text-gray-700 hover:bg-gray-100;
+}
+
+form {
+  @apply bg-white shadow-md rounded-xl p-6 space-y-4;
+}
+
+form label {
+  @apply block text-sm font-medium text-gray-700;
+}
+
+form input,
+form select,
+form textarea {
+  @apply w-full border border-gray-300 rounded-md px-3 py-2 mt-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.alert {
+  @apply p-3 rounded-md text-sm font-medium mb-4;
+}
+
+.alert-error {
+  @apply bg-red-100 text-red-700 border border-red-300;
+}
+
+.alert-success {
+  @apply bg-green-100 text-green-700 border border-green-300;
+}
+
+@media (max-width: 640px) {
+  header {
+    @apply flex-col gap-2 text-center;
+  }
+
+  main {
+    @apply px-4;
+  }
+
+  .task-card {
+    @apply p-4;
+  }
+}

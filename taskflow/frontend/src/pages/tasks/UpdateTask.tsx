@@ -19,7 +19,12 @@ export default function UpdateTask() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<TaskFormData>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<TaskFormData>({
     resolver: zodResolver(taskSchema),
   });
 
@@ -34,7 +39,12 @@ export default function UpdateTask() {
         setValue("title", data.title);
         setValue("description", data.description || "");
         setValue("status", data.status);
-        setValue("deadline", data.deadline ? new Date(data.deadline).toISOString().split("T")[0] : "");
+        setValue(
+          "deadline",
+          data.deadline
+            ? new Date(data.deadline).toISOString().split("T")[0]
+            : ""
+        );
       } catch (err) {
         console.error(err);
         alert("Erro ao carregar a tarefa.");
@@ -63,54 +73,60 @@ export default function UpdateTask() {
   if (loading) return <p>Carregando...</p>;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-white p-6 rounded-xl shadow-md w-96"
-      >
-        <h2 className="text-2xl font-bold mb-4 text-center">Editar Tarefa</h2>
+    <div>
+      <header>
+        <h1>TaskFlow</h1>
+      </header>
 
-        <input
-          type="text"
-          placeholder="Título"
-          {...register("title")}
-          className="border p-2 w-full rounded mb-2"
-        />
-        {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
-
-        <textarea
-          placeholder="Descrição (opcional)"
-          {...register("description")}
-          className="border p-2 w-full rounded mb-2"
-        />
-
-        <select {...register("status")} className="border p-2 w-full rounded mb-2">
-          <option value="pendente">Pendente</option>
-          <option value="em_andamento">Em andamento</option>
-          <option value="concluida">Concluída</option>
-        </select>
-
-        <input
-          type="date"
-          {...register("deadline")}
-          className="border p-2 w-full rounded mb-2"
-        />
-
-        <button
-          type="submit"
-          className="bg-green-600 text-white p-2 rounded w-full hover:bg-green-700"
+      <div className="flex justify-center items-center min-h-screen">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
         >
-          Atualizar
-        </button>
+          <h1>Editar Tarefa</h1>
 
-        <button
-          type="button"
-          onClick={() => navigate("/dashboard")}
-          className="mt-2 text-gray-500 hover:underline w-full"
-        >
-          Voltar
-        </button>
-      </form>
+          <input
+            type="text"
+            placeholder="Título"
+            {...register("title")}
+          />
+          {errors.title && (
+            <p className="text-red-500 text-sm">{errors.title.message}</p>
+          )}
+
+          <textarea
+            placeholder="Descrição (opcional)"
+            {...register("description")}
+          />
+
+          <select
+            {...register("status")}
+          >
+            <option value="pendente">Pendente</option>
+            <option value="em_andamento">Em andamento</option>
+            <option value="concluida">Concluída</option>
+          </select>
+
+          <input
+            type="date"
+            {...register("deadline")}
+          />
+
+          <button
+            type="submit"
+            className="btn btn-success w-full"
+          >
+            Atualizar
+          </button>
+
+          <button
+            type="button"
+            onClick={() => navigate("/dashboard")}
+            className="btn btn-outline w-full"
+          >
+            Voltar
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

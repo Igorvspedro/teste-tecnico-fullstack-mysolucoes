@@ -20,48 +20,49 @@ export default function Login() {
   };
 
   return (
-    <div className="">
-      <form
-        onSubmit={handleSubmit}
-        className=""
-      >
-        <h1 className="">
-          TaskFlow
-        </h1>
+    <div>
+      <header>
+        <h1>TaskFlow</h1>
+      </header>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className=""
-          required
-        />
-
-        <input
-          type="password"
-          placeholder="Senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className=""
-          required
-        />
-
-        <button
-          type="submit"
-          className=""
+      <div className="flex justify-center items-center min-h-screen px-4">
+        <form
+          onSubmit={handleSubmit}
+          className="rounded-xl shadow-md w-full max-w-md"
         >
-          Entrar
-        </button>
+          <h1>Login</h1>
 
-        <button
-          type="button"
-          onClick={() => navigate("/register")}
-          className=""
-        >
-          Criar conta
-        </button>
-      </form>
+          <label>E-mail:</label>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <label>Senha:</label>
+          <input
+            type="password"
+            placeholder="Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button type="submit" className="btn btn-primary w-full">
+            Entrar
+          </button>
+
+          <button
+            type="button"
+            onClick={() => navigate("/register")}
+            className="btn btn-success w-full"
+          >
+            Criar conta
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

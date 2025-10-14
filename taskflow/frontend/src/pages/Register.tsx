@@ -16,54 +16,47 @@ export default function Register() {
       navigate("/");
     } catch (err) {
       const axiosError = err as AxiosError<{ message?: string }>;
-      setError(axiosError.response?.data?.message || "Erro ao registrar usuário.");
+      setError(
+        axiosError.response?.data?.message || "Erro ao registrar usuário."
+      );
     }
   };
 
   return (
     <div className="">
-      <form
-        onSubmit={handleRegister}
-        className=""
-      >
-        <h1 className="">
-          Criar conta
-        </h1>
+      <header>
+        <h1>TaskFlow</h1>
+      </header>
 
-        {error && <p className="">{error}</p>}
+      <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
+        <form onSubmit={handleRegister} className="">
+          <h1 className="">Criar conta</h1>
 
-        <input
-          type="email"
-          placeholder="Email"
-          className=""
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+          {error && <p className="">{error}</p>}
 
-        <input
-          type="password"
-          placeholder="Senha"
-          className=""
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <button className="">
-          Registrar
-        </button>
+          <input
+            type="password"
+            placeholder="Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-        <p className="">
-          Já tem uma conta?{" "}
-          <span
-            className=""
-            onClick={() => navigate("/")}
-          >
-            Entrar
-          </span>
-        </p>
-      </form>
+          <button className="btn btn-primary w-full">Registrar</button>
+
+          <button className="btn btn-outline w-full" onClick={() => navigate("/")}>
+            Já tem uma conta?
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

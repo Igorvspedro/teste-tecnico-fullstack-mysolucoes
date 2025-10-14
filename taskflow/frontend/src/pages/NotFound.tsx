@@ -4,15 +4,16 @@ export default function NotFound() {
   const navigate = useNavigate();
 
   return (
-    <div className="">
+    <div>
+      <header>
+        <h1>TaskFlow</h1>
+      </header>
+
       <h1 className="">404</h1>
       <p className="">Página não encontrada.</p>
-      <button
-        onClick={() => navigate("/")}
-        className=""
-      >
-        Voltar para o início
-      </button>
+        <button onClick={() => navigate("/")} className="btn btn-danger">
+          Voltar para o início
+        </button>
     </div>
   );
 }
