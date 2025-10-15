@@ -36,10 +36,7 @@ export default function UpdateTask() {
   useEffect(() => {
     const loadTask = async () => {
       try {
-        const token = localStorage.getItem("taskflow-token");
-        const { data } = await api.get(`/tasks/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const { data } = await api.get(`/tasks/${id}`);
 
         setValue("title", data.title);
         setValue("description", data.description || "");
@@ -63,10 +60,7 @@ export default function UpdateTask() {
 
   const onSubmit = async (data: TaskFormData) => {
     try {
-      const token = localStorage.getItem("taskflow-token");
-      await api.put(`/tasks/${id}`, data, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await api.put(`/tasks/${id}`, data);
       navigate("/dashboard");
     } catch (err) {
       console.error(err);

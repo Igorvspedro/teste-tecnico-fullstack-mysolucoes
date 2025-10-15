@@ -13,10 +13,7 @@ export default function Dashboard() {
 
   const loadTasks = async () => {
     try {
-      const token = localStorage.getItem("taskflow-token");
-      const { data } = await api.get("/tasks", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const { data } = await api.get("/tasks");
       setTasks(data);
     } catch (error) {
       console.error(error);
@@ -51,11 +48,9 @@ export default function Dashboard() {
 
   const handleStatusChange = async (task: Task, newStatus: string) => {
     try {
-      const token = localStorage.getItem("taskflow-token");
       await api.put(
         `/tasks/${task.id}`,
         { ...task, status: newStatus },
-        { headers: { Authorization: `Bearer ${token}` } }
       );
       loadTasks();
     } catch (error) {

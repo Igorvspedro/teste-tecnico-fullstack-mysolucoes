@@ -26,10 +26,7 @@ export default function CreateTask() {
 
   const onSubmit = async (data: TaskFormData) => {
     try {
-      const token = localStorage.getItem("taskflow-token");
-      await api.post("/tasks", data, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await api.post("/tasks", data);
       navigate("/dashboard");
     } catch (error) {
       console.error(error);
