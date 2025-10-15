@@ -21,8 +21,22 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-      <Route path="/create-task" element={<CreateTask />} />
-      <Route path="/edit-task/:id" element={<UpdateTask />} />
+      <Route
+        path="/create-task"
+        element={
+          <ProtectedRoute>
+            <CreateTask />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/edit-task/:id"
+        element={
+          <ProtectedRoute>
+            <UpdateTask />
+          </ProtectedRoute>
+        }
+      />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
