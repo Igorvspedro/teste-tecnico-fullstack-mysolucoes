@@ -9,7 +9,11 @@ import { TaskStatusEnum } from "../../enums/TaskStatusEnum";
 const taskSchema = z.object({
   title: z.string().min(1, "Título é obrigatório"),
   description: z.string().optional(),
-  status: z.enum([TaskStatusEnum.PENDING, TaskStatusEnum.IN_PROGRESS, TaskStatusEnum.DONE]),
+  status: z.enum([
+    TaskStatusEnum.PENDING,
+    TaskStatusEnum.IN_PROGRESS,
+    TaskStatusEnum.DONE,
+  ]),
   deadline: z.string().optional(),
 });
 
@@ -70,51 +74,66 @@ export default function UpdateTask() {
     }
   };
 
-  if (loading) return <h2>Carregando...</h2>;
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-screen text-gray-700">
+        <h2>Carregando...</h2>
+      </div>
+    );
 
   return (
-    <div>
-      <header>
-        <h1>TaskFlow</h1>
+    <div className="content flex flex-col items-center justify-center min-h-screen fade-in">
+      <header className="mb-8 text-center">
+        <h1 className="text-2xl font-bold text-gray-800">TaskFlow</h1>
       </header>
 
-      <div className="flex justify-center items-center min-h-screen">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <h1>Editar Tarefa</h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="form w-full max-w-md flex flex-col gap-4"
+      >
+        <h2 className="text-xl font-semibold text-gray-800 text-center mb-2">
+          Editar Tarefa
+        </h2>
 
+        <div>
+          <label htmlFor="title">Título</label>
           <input
+            id="title"
             type="text"
-            placeholder="Título"
+            placeholder="Digite o título"
             {...register("title")}
           />
           {errors.title && (
-            <p className="text-red-500 text-sm">{errors.title.message}</p>
+            <p className="text-sm text-red-500 mt-1">{errors.title.message}</p>
           )}
+        </div>
 
+        <div>
+          <label htmlFor="description">Descrição (opcional)</label>
           <textarea
-            placeholder="Descrição (opcional)"
+            id="description"
+            placeholder="Adicione detalhes sobre a tarefa"
+            rows={3}
             {...register("description")}
           />
+        </div>
 
-          <select
-            {...register("status")}
-          >
+        <div>
+          <label htmlFor="status">Status</label>
+          <select id="status" {...register("status")}>
             <option value={TaskStatusEnum.PENDING}>Pendente</option>
             <option value={TaskStatusEnum.IN_PROGRESS}>Em andamento</option>
             <option value={TaskStatusEnum.DONE}>Concluída</option>
           </select>
+        </div>
 
-          <input
-            type="date"
-            {...register("deadline")}
-          />
+        <div>
+          <label htmlFor="deadline">Prazo</label>
+          <input id="deadline" type="date" {...register("deadline")} />
+        </div>
 
-          <button
-            type="submit"
-            className="btn btn-success w-full"
-          >
+        <div className="flex flex-col gap-2 mt-4">
+          <button type="submit" className="btn btn-primary w-full">
             Atualizar
           </button>
 
@@ -125,8 +144,8 @@ export default function UpdateTask() {
           >
             Voltar
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 }

@@ -23,40 +23,61 @@ export default function Register() {
   };
 
   return (
-    <div className="">
-      <header>
-        <h1>TaskFlow</h1>
+    <div className="content flex flex-col items-center justify-center min-h-screen fade-in">
+      <header className="mb-8 text-center">
+        <h1 className="text-2xl font-bold text-gray-800">TaskFlow</h1>
       </header>
 
-      <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
-        <form onSubmit={handleRegister} className="">
-          <h1 className="">Criar conta</h1>
+      <form
+        onSubmit={handleRegister}
+        className="form w-full max-w-md flex flex-col gap-4"
+      >
+        <h2 className="text-xl font-semibold text-gray-800 text-center mb-2">
+          Criar Conta
+        </h2>
 
-          {error && <p className="">{error}</p>}
+        {error && (
+          <p className="text-red-500 text-sm text-center -mt-2">{error}</p>
+        )}
 
+        <div>
+          <label htmlFor="email">E-mail</label>
           <input
+            id="email"
             type="email"
-            placeholder="Email"
+            placeholder="Digite seu e-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+        </div>
 
+        <div>
+          <label htmlFor="password">Senha</label>
           <input
+            id="password"
             type="password"
-            placeholder="Senha"
+            placeholder="Digite sua senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+        </div>
 
-          <button className="btn btn-primary w-full">Registrar</button>
+        <div className="flex flex-col gap-2 mt-4">
+          <button type="submit" className="btn btn-primary w-full">
+            Registrar
+          </button>
 
-          <button className="btn btn-outline w-full" onClick={() => navigate("/")}>
+          <button
+            type="button"
+            onClick={() => navigate("/")}
+            className="btn btn-outline w-full"
+          >
             Já tem uma conta?
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 }

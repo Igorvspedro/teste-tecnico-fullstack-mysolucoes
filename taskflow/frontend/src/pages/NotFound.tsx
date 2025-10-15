@@ -4,16 +4,22 @@ export default function NotFound() {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <header>
-        <h1>TaskFlow</h1>
+    <div className="content flex flex-col items-center justify-center min-h-screen text-center fade-in">
+      <header className="mb-8">
+        <h1 className="text-2xl font-bold text-gray-800">TaskFlow</h1>
       </header>
 
-      <h1 className="">404</h1>
-      <p className="">Página não encontrada.</p>
-        <button onClick={() => navigate("/")} className="btn btn-danger">
-          Voltar para o início
-        </button>
+      <h2 className="text-6xl font-extrabold text-gray-800 mb-2">404</h2>
+      <p className="text-lg text-gray-600 mb-6">
+        Página não encontrada.
+      </p>
+
+      <button
+        onClick={() => navigate("/")}
+        className="btn btn-outline w-48"
+      >
+        Voltar para o início
+      </button>
     </div>
   );
 }

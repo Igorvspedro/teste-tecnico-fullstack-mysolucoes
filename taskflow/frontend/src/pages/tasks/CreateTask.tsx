@@ -38,50 +38,68 @@ export default function CreateTask() {
   };
 
   return (
-    <div className="">
-      <header>
-        <h1>TaskFlow</h1>
+    <div className="content flex flex-col items-center justify-center min-h-screen fade-in">
+      <header className="mb-8 text-center">
+        <h1 className="text-2xl font-bold text-gray-800">TaskFlow</h1>
       </header>
 
-      <div className="flex justify-center items-center min-h-screen">
-      <form onSubmit={handleSubmit(onSubmit)} className="">
-        <h1 className="">Nova Tarefa</h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="form w-full max-w-md flex flex-col gap-4"
+      >
+        <h2 className="text-xl font-semibold text-gray-800 text-center mb-2">Nova Tarefa</h2>
 
-        <input
-          type="text"
-          placeholder="Título"
-          {...register("title")}
-        />
-        {errors.title && <p className="">{errors.title.message}</p>}
+        <div>
+          <label htmlFor="title">Título</label>
+          <input
+            id="title"
+            type="text"
+            placeholder="Digite o título"
+            {...register("title")}
+          />
+          {errors.title && (
+            <p className="text-sm text-red-500 mt-1">{errors.title.message}</p>
+          )}
+        </div>
 
-        <textarea
-          placeholder="Descrição (opcional)"
-          {...register("description")}
-        />
+        <div>
+          <label htmlFor="description">Descrição (opcional)</label>
+          <textarea
+            id="description"
+            placeholder="Adicione detalhes sobre a tarefa"
+            rows={3}
+            {...register("description")}
+          />
+        </div>
 
-        <select
-          {...register("status")}
-        >
-          <option value={TaskStatusEnum.PENDING}>Pendente</option>
-          <option value={TaskStatusEnum.IN_PROGRESS}>Em andamento</option>
-          <option value={TaskStatusEnum.DONE}>Concluída</option>
-        </select>
+        <div>
+          <label htmlFor="status">Status</label>
+          <select id="status" {...register("status")}>
+            <option value={TaskStatusEnum.PENDING}>Pendente</option>
+            <option value={TaskStatusEnum.IN_PROGRESS}>Em andamento</option>
+            <option value={TaskStatusEnum.DONE}>Concluída</option>
+          </select>
+        </div>
 
-        <input type="date" {...register("deadline")} className="" />
+        <div>
+          <label htmlFor="deadline">Prazo</label>
+          <input id="deadline" type="date" {...register("deadline")} />
+        </div>
 
-        <button type="submit" className="btn btn-primary w-full">
-          Criar
-        </button>
+        <div className="flex flex-col gap-2 mt-4">
+          <button type="submit" className="btn btn-primary w-full">
+            Criar
+          </button>
 
-        <button
-          type="button"
-          onClick={() => navigate("/dashboard")}
-          className="btn btn-outline w-full"
-        >
-          Voltar
-        </button>
+          <button
+            type="button"
+            onClick={() => navigate("/dashboard")}
+            className="btn btn-outline w-full"
+          >
+            Voltar
+          </button>
+        </div>
       </form>
-      </div>
     </div>
   );
 }

@@ -20,36 +20,44 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <header>
-        <h1>TaskFlow</h1>
+    <div className="content flex flex-col items-center justify-center min-h-screen fade-in">
+      <header className="mb-8 text-center">
+        <h1 className="text-2xl font-bold text-gray-800">TaskFlow</h1>
       </header>
 
-      <div className="flex justify-center items-center min-h-screen px-4">
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-xl shadow-md w-full max-w-md"
-        >
-          <h1>Login</h1>
+      <form
+        onSubmit={handleSubmit}
+        className="form w-full max-w-md flex flex-col gap-4"
+      >
+        <h2 className="text-xl font-semibold text-gray-800 text-center mb-2">
+          Login
+        </h2>
 
-          <label>E-mail:</label>
+        <div>
+          <label htmlFor="email">E-mail</label>
           <input
+            id="email"
             type="email"
-            placeholder="Email"
+            placeholder="Digite seu e-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+        </div>
 
-          <label>Senha:</label>
+        <div>
+          <label htmlFor="password">Senha</label>
           <input
+            id="password"
             type="password"
-            placeholder="Senha"
+            placeholder="Digite sua senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+        </div>
 
+        <div className="flex flex-col gap-2 mt-4">
           <button type="submit" className="btn btn-primary w-full">
             Entrar
           </button>
@@ -57,12 +65,12 @@ export default function Login() {
           <button
             type="button"
             onClick={() => navigate("/register")}
-            className="btn btn-success w-full"
+            className="btn btn-outline w-full"
           >
             Criar conta
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 }
