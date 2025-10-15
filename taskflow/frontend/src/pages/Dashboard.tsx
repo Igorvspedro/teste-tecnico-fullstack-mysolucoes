@@ -44,7 +44,7 @@ export default function Dashboard() {
   return (
     <div>
       <header className="flex justify-between items-center p-4 border-b bg-gray-100">
-        <h1 className="font-bold text-lg">TaskFlow</h1>
+        <h1>TaskFlow</h1>
         <div>
           <span className="text-gray-700 px-2">Olá, {user?.email}</span>
           <button onClick={logout} className="btn btn-danger">
@@ -86,17 +86,17 @@ export default function Dashboard() {
         </div>
 
         {filteredTasks.length === 0 ? (
-          <p className="text-gray-600 text-center">
+          <h2 className="text-gray-600 text-center">
             Nenhuma tarefa encontrada.
-          </p>
+          </h2>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredTasks.map((task) => (
               <div key={task.id} className="bg-white p-4 rounded-lg shadow">
                 <h3 className="font-bold text-lg text-gray-800">
-                  {task.title}
+                  Título: {task.title}
                 </h3>
-                <p className="text-gray-600 text-sm mt-2">{task.description}</p>
+                <p className="text-gray-600 text-sm mt-2">Descrição: {task.description}</p>
                 <p className="text-sm mt-3">
                   <span
                     className={`px-2 py-1 rounded text-white text-xs ${

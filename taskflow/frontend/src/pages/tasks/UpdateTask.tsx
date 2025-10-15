@@ -70,7 +70,7 @@ export default function UpdateTask() {
     }
   };
 
-  if (loading) return <p>Carregando...</p>;
+  if (loading) return <h2>Carregando...</h2>;
 
   return (
     <div>
