@@ -131,7 +131,15 @@ export default function Dashboard() {
                     </label>
                     <select
                       id={`status-${task.id}`}
-                      className="status-select"
+                      className={`status-select ${
+                        task.status === TaskStatusEnum.PENDING
+                          ? "status-pending"
+                          : task.status === TaskStatusEnum.IN_PROGRESS
+                          ? "status-progress"
+                          : task.status === TaskStatusEnum.DONE
+                          ? "status-done"
+                          : ""
+                      }`}
                       value={task.status}
                       onChange={(e) => handleStatusChange(task, e.target.value)}
                     >
