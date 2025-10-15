@@ -68,10 +68,7 @@ cp .env.example .env
 npm install
 
 # Criar banco no MySQL
-CREATE DATABASE taskflow;
-
-# Rodar migrations
-npm run migrate
+CREATE DATABASE Taskflow;
 
 # Iniciar o servidor
 npm run dev
