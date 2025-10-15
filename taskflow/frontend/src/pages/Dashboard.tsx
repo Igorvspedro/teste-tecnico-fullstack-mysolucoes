@@ -41,9 +41,14 @@ export default function Dashboard() {
     { value: TaskStatusEnum.DONE, label: "Concluída" },
   ];
 
+  const formatLocalDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const localDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+    return localDate.toLocaleDateString();
+  };
+
   return (
     <div className="app">
-
       <main className="flex-1">
         <header className="topbar">
           <h1 className="text-lg font-bold flex items-center gap-2">
@@ -122,8 +127,7 @@ export default function Dashboard() {
 
                   {task.deadline && (
                     <p className="text-xs text-gray-500 mt-2">
-                      Prazo:{" "}
-                      {new Date(task.deadline).toLocaleDateString()}
+                      Prazo: {formatLocalDate(task.deadline)}
                     </p>
                   )}
 
