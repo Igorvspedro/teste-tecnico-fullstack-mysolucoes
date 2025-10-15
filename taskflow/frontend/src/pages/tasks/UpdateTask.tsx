@@ -9,7 +9,7 @@ import { TaskStatusEnum } from "../../enums/TaskStatusEnum";
 const taskSchema = z.object({
   title: z.string().min(1, "Título é obrigatório"),
   description: z.string().optional(),
-  status: z.enum(["pendente", "em_andamento", "concluida"]),
+  status: z.enum([TaskStatusEnum.PENDING, TaskStatusEnum.IN_PROGRESS, TaskStatusEnum.DONE]),
   deadline: z.string().optional(),
 });
 
@@ -48,7 +48,7 @@ export default function UpdateTask() {
         );
       } catch (err) {
         console.error(err);
-        alert("Erro ao carregar a tarefa.");
+        <p>Erro ao carregar a tarefa</p>;
       } finally {
         setLoading(false);
       }
@@ -63,11 +63,10 @@ export default function UpdateTask() {
       await api.put(`/tasks/${id}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      alert("Tarefa atualizada com sucesso!");
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
-      alert("Erro ao atualizar a tarefa.");
+      <p>Erro ao atualizar a tarefa</p>;
     }
   };
 

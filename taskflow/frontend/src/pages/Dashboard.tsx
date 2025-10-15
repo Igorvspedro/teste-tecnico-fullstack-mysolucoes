@@ -8,6 +8,7 @@ import { TaskStatusEnum } from "../enums/TaskStatusEnum";
 export default function Dashboard() {
   const { user, logout } = useContext(AuthContext);
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [statusFilter, setStatusFilter] = useState<string>("ALL");
   const navigate = useNavigate();
 
   const loadTasks = async () => {
@@ -19,7 +20,7 @@ export default function Dashboard() {
       setTasks(data);
     } catch (error) {
       console.error(error);
-      alert("Erro ao carregar tarefas.");
+      <p>Erro ao carregar tarefas</p>;
     }
   };
 
@@ -28,11 +29,23 @@ export default function Dashboard() {
     else loadTasks();
   }, [user, navigate]);
 
+  const filteredTasks =
+    statusFilter === "ALL"
+      ? tasks
+      : tasks.filter((task) => task.status === statusFilter);
+
+  const statusOptions = [
+    { value: "ALL", label: "Todos" },
+    { value: TaskStatusEnum.PENDING, label: "Pendente" },
+    { value: TaskStatusEnum.IN_PROGRESS, label: "Em andamento" },
+    { value: TaskStatusEnum.DONE, label: "Concluída" },
+  ];
+
   return (
-    <div className="">
-      <header className="">
-        <h1 className="">TaskFlow</h1>
-        <div className="">
+    <div>
+      <header className="flex justify-between items-center p-4 border-b bg-gray-100">
+        <h1 className="font-bold text-lg">TaskFlow</h1>
+        <div>
           <span className="text-gray-700 px-2">Olá, {user?.email}</span>
           <button onClick={logout} className="btn btn-danger">
             Sair
@@ -41,25 +54,44 @@ export default function Dashboard() {
       </header>
 
       <main className="flex-1 p-6">
-        <div className="flex justify-between mb-6">
-          <h1 className="font-semibold">
-            Minhas Tarefas
-          </h1>
-          <button
-            onClick={() => navigate("/create-task")}
-            className="btn btn-primary"
-          >
-            + Nova Tarefa
-          </button>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="font-semibold text-xl">Minhas Tarefas</h1>
+          <div className="flex gap-3 items-center">
+            <div className="flex gap-2">
+              {statusOptions.map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => setStatusFilter(opt.value)}
+                  className={`
+                    px-3 py-1 rounded-full text-sm border transition 
+                    ${
+                      statusFilter === opt.value
+                        ? "btn btn-primary"
+                        : "btn btn-outline"
+                    }
+                  `}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+
+            <button
+              onClick={() => navigate("/create-task")}
+              className="btn btn-success"
+            >
+              + Nova Tarefa
+            </button>
+          </div>
         </div>
 
-        {tasks.length === 0 ? (
+        {filteredTasks.length === 0 ? (
           <p className="text-gray-600 text-center">
             Nenhuma tarefa encontrada.
           </p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {tasks.map((task) => (
+            {filteredTasks.map((task) => (
               <div key={task.id} className="bg-white p-4 rounded-lg shadow">
                 <h3 className="font-bold text-lg text-gray-800">
                   {task.title}
@@ -108,11 +140,10 @@ export default function Dashboard() {
                         await api.delete(`/tasks/${task.id}`, {
                           headers: { Authorization: `Bearer ${token}` },
                         });
-                        alert("Tarefa removida com sucesso!");
                         loadTasks();
                       } catch (error) {
                         console.error(error);
-                        alert("Erro ao remover tarefa.");
+                        <p>Erro ao remover tarefa</p>;
                       }
                     }}
                     className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"

@@ -8,7 +8,7 @@ import { TaskStatusEnum } from "../../enums/TaskStatusEnum";
 const taskSchema = z.object({
   title: z.string().min(1, "Título é obrigatório"),
   description: z.string().optional(),
-  status: z.enum(["pendente", "em_andamento", "concluida"]),
+  status: z.enum([TaskStatusEnum.PENDING, TaskStatusEnum.IN_PROGRESS, TaskStatusEnum.DONE]),
   deadline: z.string().optional(),
 });
 
@@ -30,11 +30,10 @@ export default function CreateTask() {
       await api.post("/tasks", data, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      alert("Tarefa criada com sucesso!");
       navigate("/dashboard");
     } catch (error) {
       console.error(error);
-      alert("Erro ao criar tarefa.");
+      <p>Erro ao criar tarefa.</p>;
     }
   };
 

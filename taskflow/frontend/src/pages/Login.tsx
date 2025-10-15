@@ -15,7 +15,7 @@ export default function Login() {
       await login(email, password);
     } catch (error) {
       console.error("Erro ao fazer login:", error);
-      alert("Email ou senha incorretos");
+      <p>Email ou senha incorretos</p>;
     }
   };
 
