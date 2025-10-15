@@ -20,7 +20,7 @@ export default function Dashboard() {
       setTasks(data);
     } catch (error) {
       console.error(error);
-      <p>Erro ao carregar tarefas</p>;
+      alert("Erro ao carregar tarefas");
     }
   };
 
@@ -43,8 +43,25 @@ export default function Dashboard() {
 
   const formatLocalDate = (dateString: string) => {
     const date = new Date(dateString);
-    const localDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+    const localDate = new Date(
+      date.getTime() + date.getTimezoneOffset() * 60000
+    );
     return localDate.toLocaleDateString();
+  };
+
+  const handleStatusChange = async (task: Task, newStatus: string) => {
+    try {
+      const token = localStorage.getItem("taskflow-token");
+      await api.put(
+        `/tasks/${task.id}`,
+        { ...task, status: newStatus },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      loadTasks();
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao atualizar status da tarefa");
+    }
   };
 
   return (
@@ -77,9 +94,7 @@ export default function Dashboard() {
                     key={opt.value}
                     onClick={() => setStatusFilter(opt.value)}
                     className={`btn btn-sm ${
-                      statusFilter === opt.value
-                        ? "btn-primary"
-                        : "btn-outline"
+                      statusFilter === opt.value ? "btn-primary" : "btn-outline"
                     }`}
                   >
                     {opt.label}
@@ -107,23 +122,26 @@ export default function Dashboard() {
                   <h3 className="text-lg font-semibold">{task.title}</h3>
                   <p className="text-gray-600 text-sm">{task.description}</p>
 
-                  <p className="mt-3">
-                    <span
-                      className={`status ${
-                        task.status === TaskStatusEnum.PENDING
-                          ? "open"
-                          : task.status === TaskStatusEnum.IN_PROGRESS
-                          ? "warn"
-                          : "done"
-                      }`}
+                  <div className="mt-3 flex items-center gap-2">
+                    <label
+                      htmlFor={`status-${task.id}`}
+                      className="text-sm font-medium text-gray-700"
                     >
-                      {task.status === TaskStatusEnum.PENDING
-                        ? "Pendente"
-                        : task.status === TaskStatusEnum.IN_PROGRESS
-                        ? "Em andamento"
-                        : "Concluída"}
-                    </span>
-                  </p>
+                      Status:
+                    </label>
+                    <select
+                      id={`status-${task.id}`}
+                      className="status-select"
+                      value={task.status}
+                      onChange={(e) => handleStatusChange(task, e.target.value)}
+                    >
+                      <option value={TaskStatusEnum.PENDING}>Pendente</option>
+                      <option value={TaskStatusEnum.IN_PROGRESS}>
+                        Em andamento
+                      </option>
+                      <option value={TaskStatusEnum.DONE}>Concluída</option>
+                    </select>
+                  </div>
 
                   {task.deadline && (
                     <p className="text-xs text-gray-500 mt-2">
@@ -154,7 +172,7 @@ export default function Dashboard() {
                           loadTasks();
                         } catch (error) {
                           console.error(error);
-                          <p>Erro ao remover tarefa</p>;
+                          alert("Erro ao remover tarefa");
                         }
                       }}
                       className="btn btn-danger"

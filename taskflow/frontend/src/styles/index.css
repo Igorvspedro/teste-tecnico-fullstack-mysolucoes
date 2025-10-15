@@ -192,7 +192,6 @@
     box-shadow: var(--focus-ring);
     border-color: var(--color-primary);
   }
-
   .table {
     @apply w-full border-collapse text-sm bg-white rounded-lg overflow-hidden;
     border: 1px solid rgba(16,24,40,0.03);
@@ -263,3 +262,24 @@
 
 .gap-3 { gap: 0.75rem; }
 .gap-4 { gap: 1rem; }
+
+@layer components {
+  .status-select {
+    @apply appearance-none px-3 py-2 rounded-md text-sm font-medium border border-gray-200 bg-white text-gray-700 shadow-sm transition;
+    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,255,0.94));
+    cursor: pointer;
+    min-width: 140px;
+    box-shadow: 0 4px 10px rgba(2,6,23,0.04);
+  }
+
+  .status-select:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 6px 16px rgba(37,99,235,0.08);
+  }
+
+  .status-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: var(--focus-ring);
+  }
+}
